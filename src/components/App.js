@@ -1,42 +1,38 @@
 import { useEffect, useState } from "react";
 
 const App = (props) => {
-  const [state, setState] = useState(props);
-  const { name, price } = state;
-
-  useEffect(() => {
-    console.log("useEffect is in invoked.");
-  }); //レンダリングの後に実行される
-  useEffect(() => {
-    console.log("This is like componentDidMount.");
-  }, []); //初回時のみレンダリングされる
-  useEffect(() => {
-    console.log("This callback is for name only.");
-  }, [name]); //特定のコンポーネントの状態が変化した時のみレンダリングされる
-
   return (
-    <>
-      <p>
-        現在の{name}は{price}です
-      </p>
-      <button onClick={() => setState({ ...state, price: price + 1 })}>
-        +1
-      </button>
-      <button onClick={() => setState({ ...state, price: price - 1 })}>
-        -1
-      </button>
-      <input
-        value={name}
-        onChange={(e) => setState({ ...state, name: e.target.value })}
-      />
-      <button onClick={() => setState(props)}>reset</button>
-    </>
-  );
-};
+    <div className="container-fluid">
+      <h4>イベント作成フォーム</h4>
+      <form>
+        <div className="form-group">
+          <label htmlFor="formEventTitle">タイトル</label>
+          <input className="form-control" id="formEventTitle" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="formEventBody">ボディー</label>
+          <textarea className="form-control" id="formEventBody" />
+        </div>
 
-App.defaultProps = {
-  name: "",
-  price: 1000
+        <button className="btn btn-primary">イベントを作成する</button>
+        <button className="btn btn-danger" style={{ marginLeft: "10px" }}>
+          すべてのイベントを削除する
+        </button>
+      </form>
+
+      <h4>イベント一覧</h4>
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Body</th>
+          </tr>
+          <tbody></tbody>
+        </thead>
+      </table>
+    </div>
+  );
 };
 
 export default App;
