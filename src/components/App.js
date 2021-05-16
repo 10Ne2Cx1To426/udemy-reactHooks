@@ -2,6 +2,8 @@ import { useReducer, useState } from "react";
 
 import reducer from "../reducers/index";
 
+import Event from "./Event";
+
 const App = (props) => {
   const [state, dispatch] = useReducer(reducer, []);
   const [title, setTitle] = useState("");
@@ -9,6 +11,7 @@ const App = (props) => {
 
   const addEvent = (e) => {
     e.preventDefault();
+    console.log({ title, body });
     dispatch({
       type: "CREATE_EVENT",
       title,
@@ -59,8 +62,12 @@ const App = (props) => {
             <th>Title</th>
             <th>Body</th>
           </tr>
-          <tbody></tbody>
         </thead>
+        <tbody>
+          {state.map((event, index) => (
+            <Event key={index} event={event} dispatch={dispatch} />
+          ))}
+        </tbody>
       </table>
     </div>
   );
