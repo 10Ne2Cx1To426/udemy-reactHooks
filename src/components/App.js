@@ -5,9 +5,10 @@ import EventForm from "./EventForm";
 import Events from "./Events";
 import AppContext from "../contexts/AppContext";
 
-const App = (props) => {
+const App = () => {
   const initialState = {
-    events: []
+    events: [],
+    operationLogs: []
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   return (
