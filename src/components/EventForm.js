@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { CREATE_EVENT, DELETE_ALL_EVENT } from "../actions";
+
 const EventForm = (props) => {
   const { state, dispatch } = props;
   const [title, setTitle] = useState("");
@@ -8,7 +10,7 @@ const EventForm = (props) => {
     e.preventDefault();
     console.log({ title, body });
     dispatch({
-      type: "CREATE_EVENT",
+      type: CREATE_EVENT,
       title,
       body
     });
@@ -20,7 +22,7 @@ const EventForm = (props) => {
     const result = window.confirm(
       "全てのイベントを本当に削除してもいいですか？"
     );
-    if (result) dispatch({ type: "DELETE_ALL_EVENT" });
+    if (result) dispatch({ type: DELETE_ALL_EVENT });
   };
   const unCreatable = title === "" || body === "";
   return (
@@ -31,6 +33,7 @@ const EventForm = (props) => {
           <label htmlFor="formEventTitle">タイトル</label>
           <input
             className="form-control"
+            placeholder="Titleを入力"
             id="formEventTitle"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -41,6 +44,7 @@ const EventForm = (props) => {
           <textarea
             className="form-control"
             id="formEventBody"
+            placeholder="本文を入力"
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
