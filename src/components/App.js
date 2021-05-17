@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { React, useReducer, useState } from "react";
 
 import reducer from "../reducers/index";
 
@@ -21,7 +21,15 @@ const App = (props) => {
     setBody("");
   };
 
-  console.log({ state });
+  const deleteAllEvents = (e) => {
+    e.preventDefault();
+    const result = window.confirm(
+      "全てのイベントを本当に削除してもいいですか？"
+    );
+    if (result) dispatch({ type: "DELETE_ALL_EVENT" });
+  };
+
+  const unCreatable = title === "" || body === "";
 
   return (
     <div className="container-fluid">
@@ -46,10 +54,19 @@ const App = (props) => {
           />
         </div>
 
-        <button className="btn btn-primary" onClick={addEvent}>
+        <button
+          className="btn btn-primary"
+          onClick={addEvent}
+          disabled={unCreatable}
+        >
           イベントを作成する
         </button>
-        <button className="btn btn-danger" style={{ marginLeft: "10px" }}>
+        <button
+          className="btn btn-danger"
+          style={{ marginLeft: "10px" }}
+          onClick={deleteAllEvents}
+          disabled={state.length === 0}
+        >
           すべてのイベントを削除する
         </button>
       </form>
